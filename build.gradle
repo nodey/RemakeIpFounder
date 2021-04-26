@@ -1,0 +1,12 @@
+allprojects {
+    group = 'com.nodey'
+    version = '0.1.0'
+}
+
+subprojects {
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+}

@@ -1,0 +1,92 @@
+plugins {
+    id "org.springframework.boot" version "$springBootVersion"
+    id 'io.spring.dependency-management' version "${springDependencyManagementPluginVersion}"
+    id "com.github.node-gradle.node" version "${nodePluginVersion}"
+    id 'io.franzbecker.gradle-lombok' version "${lombokPluginVersion}"
+}
+
+group = 'com.nodey'
+version = '0.1.0'
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'application'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'io.franzbecker.gradle-lombok'
+
+applicationDefaultJvmArgs = ["-Dspring.output.ansi.enabled=ALWAYS"]
+
+repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+}
+
+compileJava {
+    sourceCompatibility = 11
+    targetCompatibility = 11
+}
+
+springBoot {
+    mainClassName = 'com.nodey.Application'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
+}
+
+dependencies {
+    implementation project(':configuration')
+
+    compileOnly "org.projectlombok:lombok"
+    testCompileOnly "org.projectlombok:lombok:"
+    annotationProcessor "org.projectlombok:lombok"
+    testAnnotationProcessor "org.projectlombok:lombok"
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'application'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'io.franzbecker.gradle-lombok'
+
+    applicationDefaultJvmArgs = ["-Dspring.output.ansi.enabled=ALWAYS"]
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+    }
+
+    compileJava {
+        sourceCompatibility = 11
+        targetCompatibility = 11
+
+        options.compilerArgs += [
+                '-Amapstruct.suppressGeneratorTimestamp=true',
+                '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+                '-Amapstruct.verbose=true',
+                '-Amapstruct.defaultComponentModel=spring'
+        ]
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+        }
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+        testCompileOnly "org.projectlombok:lombok:"
+        annotationProcessor "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
+
+        implementation "org.mapstruct:mapstruct:${mupstructPluginVersion}"
+        annotationProcessor "org.mapstruct:mapstruct-processor:${mupstructPluginVersion}"
+    }
+
+}

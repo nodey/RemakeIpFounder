@@ -1,0 +1,3 @@
+rootProject.name = 'remake-ip-founder'
+
+includeBuild 'backend'
