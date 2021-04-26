@@ -1,8 +1,8 @@
-package com.nodey.controller;
+package com.nodey.ip.controller;
 
-import com.nodey.dto.out.IpDtoOut;
+import com.nodey.ip.dto.out.IpDtoOut;
 import com.nodey.ip.port.in.IpUseCase;
-import com.nodey.mapper.IpDtoMapper;
+import com.nodey.ip.mapper.IpDtoMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.web.bind.annotation.GetMapping;

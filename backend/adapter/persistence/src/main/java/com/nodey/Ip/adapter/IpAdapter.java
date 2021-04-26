@@ -18,8 +18,6 @@ class IpAdapter implements IpPort {
 
     private InetAddress inetAddress;
 
-    private List<Ip> checkedIpList;
-
     @PostConstruct
     public void init(){
         ips = new ArrayList<>();

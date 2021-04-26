@@ -1,4 +1,4 @@
-package com.nodey.dto.in;
+package com.nodey.ip.dto.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
