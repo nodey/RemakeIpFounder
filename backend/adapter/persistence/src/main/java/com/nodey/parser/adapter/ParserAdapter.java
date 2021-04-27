@@ -8,18 +8,14 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-@PropertySource("classpath:application.properties")
 class ParserAdapter implements ParserPort {
-
-    private List<Ip> newIpList;
 
     @Value("${com.nodey.parser.url}")
     private String url;
@@ -36,9 +32,11 @@ class ParserAdapter implements ParserPort {
     @Value("${com.nodey.parser.portSequence}")
     private String portSequence;
 
+    private List<Ip> parserList = new ArrayList<>();
+
     @Override
-    @PostConstruct
-    public void parseNewIp() throws Exception {
+    public List<Ip> parseNewIp() throws Exception {
+
         Document doc = Jsoup.connect(url).get();
         Element table = doc.select(tableTag).get(0);
 
@@ -50,16 +48,9 @@ class ParserAdapter implements ParserPort {
             Ip obj = new Ip();
             obj.setIp(ip);
             obj.setPort(port);
-            newIpList.add(obj);
-            System.out.println(newIpList);
+            parserList.add(obj);
+            System.out.println(parserList);
         }
+        return parserList;
     }
-
-    @Override
-    public List<Ip> getAllNewIp() {
-        return newIpList;
-    }
-
-
-
 }

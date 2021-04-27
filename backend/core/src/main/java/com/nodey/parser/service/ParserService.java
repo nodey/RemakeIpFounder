@@ -18,13 +18,7 @@ public class ParserService implements ParserUseCase {
 
     @Override
     @SneakyThrows
-    public void getParserIpList() {
-        port.parseNewIp();
-    }
-
-    @Override
-    @SneakyThrows
-    public List<Ip> getAllNewIp() {
-        return port.getAllNewIp();
+    public List<Ip> getParserIpList() {
+        return port.parseNewIp();
     }
 }
