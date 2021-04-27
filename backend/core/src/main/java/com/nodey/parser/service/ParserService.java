@@ -15,10 +15,15 @@ public class ParserService implements ParserUseCase {
 
     private final ParserPort port;
 
+    @Override
+    @SneakyThrows
+    public List<Ip> parseNewIps() {
+        return port.parseNewIps();
+    }
 
     @Override
     @SneakyThrows
-    public List<Ip> getParserIpList() {
-        return port.parseNewIp();
+    public List<Ip> getIpsFromParser() {
+        return port.getIpsFromParser();
     }
 }

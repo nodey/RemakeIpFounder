@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Ip {
 
-    private Integer id;
-
     private String ip;
 
     private String port;

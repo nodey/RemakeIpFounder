@@ -10,6 +10,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +33,17 @@ class ParserAdapter implements ParserPort {
     @Value("${com.nodey.parser.portSequence}")
     private String portSequence;
 
-    private List<Ip> parserList = new ArrayList<>();
+    private List<Ip> parserList;
 
     @Override
-    public List<Ip> parseNewIp() throws Exception {
+    public List<Ip> parseNewIps() throws Exception {
+
+        parserList = new ArrayList<>();
 
         Document doc = Jsoup.connect(url).get();
         Element table = doc.select(tableTag).get(0);
 
-        for (Element row : table.select(rowSettings)){
+        for (Element row : table.select(rowSettings)) {
             Elements ips = row.select(ipSequence);
             Elements ports = row.select(portSequence);
             String ip = ips.text();
@@ -49,8 +52,12 @@ class ParserAdapter implements ParserPort {
             obj.setIp(ip);
             obj.setPort(port);
             parserList.add(obj);
-            System.out.println(parserList);
         }
         return parserList;
+    }
+
+    @Override
+    public List<Ip> getIpsFromParser() throws Exception {
+        return parseNewIps();
     }
 }

@@ -19,12 +19,6 @@ class IpController {
     private final IpDtoMapper mapper;
 
     @SneakyThrows
-    @GetMapping("{id}")
-    public IpDtoOut getIp(@PathVariable("id") Integer id) {
-        return mapper.ipToIpDtoOut(useCase.getIp(id));
-    }
-
-    @SneakyThrows
     @GetMapping
     public IpDtoOut getAccessIp(){
         return mapper.ipToIpDtoOut(useCase.getAccessIpList());

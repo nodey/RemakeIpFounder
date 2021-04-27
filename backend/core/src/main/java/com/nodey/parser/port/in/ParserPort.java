@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface ParserPort {
 
-    List<Ip> parseNewIp() throws Exception;
+    List<Ip> parseNewIps() throws Exception;
+
+    List<Ip> getIpsFromParser() throws Exception;
 }

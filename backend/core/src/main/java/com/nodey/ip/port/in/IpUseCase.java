@@ -2,9 +2,9 @@ package com.nodey.ip.port.in;
 
 import com.nodey.ip.domain.Ip;
 
-public interface IpUseCase {
+import java.util.List;
 
-    Ip getIp(Integer id) throws Exception;
+public interface IpUseCase {
 
     boolean checkIpForAccess(String ip) throws Exception;
 

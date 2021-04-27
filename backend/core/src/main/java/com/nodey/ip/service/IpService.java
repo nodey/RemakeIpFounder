@@ -7,17 +7,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
 class IpService implements IpUseCase {
 
     private final IpPort port;
-
-    @Override
-    @SneakyThrows
-    public Ip getIp(Integer id) {
-        return port.findIpById(id);
-    }
 
     @Override
     @SneakyThrows
