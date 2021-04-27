@@ -56,9 +56,10 @@ class ParserAdapter implements ParserPort {
     }
 
     @Override
-    public List<Ip> getAllNewIp() throws Exception {
+    public List<Ip> getAllNewIp() {
         return newIpList;
     }
+
 
 
 }
