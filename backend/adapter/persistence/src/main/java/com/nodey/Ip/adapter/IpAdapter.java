@@ -2,7 +2,7 @@ package com.nodey.Ip.adapter;
 
 import com.nodey.ip.domain.Ip;
 import com.nodey.ip.port.out.IpPort;
-import com.nodey.parser.service.ParserService;
+import com.nodey.parser.port.in.ParserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +14,7 @@ class IpAdapter implements IpPort {
 
     private InetAddress inetAddress;
 
-    private final ParserService service;
+    private final ParserUseCase useCase;
 
     @Override
     public boolean checkIpForAccess(String ip) throws Exception {
@@ -25,7 +25,7 @@ class IpAdapter implements IpPort {
 
     public Ip getAccessIpList() throws Exception{
 
-        for (Ip ip : service.getIpsFromParser()){
+        for (Ip ip : useCase.getIpsFromParser()){
             if(checkIpForAccess(ip.getIp())){
                 return ip;
             }

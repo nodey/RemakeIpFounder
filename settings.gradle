@@ -1,5 +1,4 @@
 rootProject.name = 'remake-ip-founder'
 
 includeBuild 'backend'
-include 'parser-jsoup'
 

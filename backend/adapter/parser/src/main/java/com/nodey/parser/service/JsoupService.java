@@ -1,22 +1,21 @@
-package com.nodey.parser.adapter;
+package com.nodey.parser.service;
 
 import com.nodey.ip.domain.Ip;
-import com.nodey.parser.port.in.ParserPort;
+import com.nodey.parser.port.ParserInterface;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 @RequiredArgsConstructor
-class ParserAdapter implements ParserPort {
+class JsoupService implements ParserInterface {
 
     @Value("${com.nodey.parser.url}")
     private String url;
@@ -33,12 +32,9 @@ class ParserAdapter implements ParserPort {
     @Value("${com.nodey.parser.portSequence}")
     private String portSequence;
 
-    private List<Ip> parserList;
-
+    private List<Ip> parserList = new ArrayList<>();
     @Override
     public List<Ip> parseNewIps() throws Exception {
-
-        parserList = new ArrayList<>();
 
         Document doc = Jsoup.connect(url).get();
         Element table = doc.select(tableTag).get(0);
@@ -52,12 +48,8 @@ class ParserAdapter implements ParserPort {
             obj.setIp(ip);
             obj.setPort(port);
             parserList.add(obj);
+            System.out.println(parserList);
         }
         return parserList;
-    }
-
-    @Override
-    public List<Ip> getIpsFromParser() throws Exception {
-        return parseNewIps();
     }
 }

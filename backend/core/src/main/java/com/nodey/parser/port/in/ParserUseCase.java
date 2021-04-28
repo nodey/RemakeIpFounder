@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ParserUseCase {
 
-    List<Ip> parseNewIps() throws Exception;
-
     List<Ip> getIpsFromParser() throws Exception;
 
 }
